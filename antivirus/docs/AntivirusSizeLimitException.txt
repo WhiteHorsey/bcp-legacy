@@ -1,0 +1,13 @@
+package bcp.socle.antivirus;
+
+/**
+ * @author bilalslayki
+ *
+ */
+public class AntivirusSizeLimitException extends RuntimeException {
+	private static final long serialVersionUID = 1L;
+
+	public AntivirusSizeLimitException(String msg) {
+		super(msg);
+	}
+}

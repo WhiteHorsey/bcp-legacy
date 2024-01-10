@@ -1,0 +1,41 @@
+What is unidirectional and bidirectional relationship?
+
+	Using ORM technique, we can configure a relationship as either one way or two way. 
+	A unidirectional relationship means that the flow of data is just in one direction. 
+	Needless to say, a bidirectional relationship means that the flow of data is in both the directions. 
+	Furthermore, a bidirectional relationship has both an owning side and an inverse side. 
+	A unidirectional relationship has only an owning side. 
+	The owning side of a relationship determines how the Persistence runtime makes updates to the relationship in the database.
+	In a unidirectional relationship, only one entity has a relationship field or property that refers to the other.
+	 In a bidirectional relationship, each entity has a relationship field or property that refers to the other entity.
+
+
+What is owning side & inverse/referencing side in an ORM?
+
+	In fact, owning side and inverse side are the technical terminologies of the ORM technology.
+	 They are not the concepts of participating entities.
+	 In fact, they are the two sides of a bidirectional relationship. 
+	The owning side initiates the creation of the relationship to the database.
+	Generally, this is the side where the foreign key resides.
+	However, from the database point-of-view owning side entity (owner entity) will have a foreign key column. 
+	Obviously, the other remaining side is the inverse side or referencing side.
+	The inverse side maps the owning side using mappedBy attribute. 
+	Moreover, people in the industry also call them roles of the entity. 
+	In every relation there are two entities that are related to one another, each entity play a role which is either Owning Entity or Non-Owning Entity.
+
+
+What are the must follow rules for bidirectional relationship?
+
+	1) The inverse side of a bidirectional relationship must refer to its owning side by using the mappedBy
+ 	element of the @OneToOne, @OneToMany, or @ManyToMany annotation. 
+	The mappedBy attribute provides the value of property or field in the entity that is the owner of the relationship.
+
+	2) The many side of many-to-one bidirectional relationships must not define the mappedBy element. 
+	The many side is always the owning side of the relationship. In fact, ManyToOne is always the owning side 
+	of a bidirectional association. Similarly, OneToMany is always the inverse side of a bidirectional association.
+
+
+	3) For one-to-one bidirectional relationships, the owning side corresponds to the side that contains the corresponding foreign key.
+
+	4) For many-to-many bidirectional relationships, either side may be the owning side. Hence, we can choose the owning side of a many-to-many association ourself.
+

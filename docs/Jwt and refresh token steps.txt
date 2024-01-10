@@ -1,0 +1,106 @@
+//////////// MODELS
+1- create model user(id,username,email,password) + manytomany roles
+2- create model ERole(ROLE_USER,ROLE_ADMIN)
+3- create model Role(id,name)
+4- create model RefreshToken(id, userObject, token, exipryDate) one to one with user unidiretional join column 
+
+//////////// REPOSITORIES
+1- userRepository (optional<User> findByUsername, bool existsByUsername , bool existsByEmail)
+2- roleRepository (optional<Role>findByName)
+3- refreshTokenRepository (Optional<RefreshToken> findByToken, int deleteByUser(User user))
+
+//////////// REQUESTS
+1- loginREquest(usernmae, password)
+2-LogoutRequest(userId)
+3- SignUpREquest(usernmae, password, email, list<Role> roles)
+4- TokenRefreshRequest(refreshToken)
+
+//////////// RESPONSES
+1- RefreshtokenResponse(accessToken,refreshToken,tokenType)
+2- JWTResponse(id, usernmae, email, accessToken, refreshToken, tokenType, List<Role> roles)
+
+//////////// UserDetailsImpl
+this class will provide a schema of the core information of a user implemet from UserDetails from spring security and then we add our user
+attributes for our project like id, username, password, email ......
+
+//////////// UserDetailsServiceImpl
+This class implement UserDetailsService interface witch gives us one method for retrieving user like a standard flow of retireving the user
+then return UserDetailsImpl = the schema that we just defined up fro mthe user retrieved from db using the 
+overrided method UserDetails loadUserByUsername(String username)
+
+//////////// RefreshTokenService
+1- this service retrieves the token from refreshtokenTable Optional<RefreshToken> findByToken(String token)
+2- this service createRefreshToken  -> RefreshToken createRefreshToken(Long userId) : get user from db + set Expiry(now + duration in properties)
+	 + generate Random UUID as the refresh token
+3 - this service verifyExpiration ----->RefreshToken verifyExpiration(RefreshToken token)
+	get the date from refreshtokenObject and compare it to now
+		if < 0 --> delete the token -> throw exception refresh token expired
+4- deleteByUserId ---------> int deleteByUserId(Long userId)
+
+
+//////////// JwtUtils
+THIS IS class that
+1- String generateJwtToken(UserDetailsImpl userPrincipal) ---> create token from username
+2- String getUserNameFromJwtToken(String token) ------------> get the username from the token
+3- boolean validateJwtToken(String authToken) ------------> validate the token return true if exception false token
+
+
+//////////// AuthTokenFilter
+This class is the filter for any request extends the class OncePerRequestFilter and override the method responsible of the filter of any request  : doFilterInternal
+	
+1- we retrieve the token from the authorization header, check if the token is not empty and it strats with bearer
+	a- true : return the token : remove bearer from string
+	b- return null
+2- token != null and token validated by JWTUtils validate token = no exception when parsing the token with the secret key
+3- extract username from token
+4 - get the user from DB using the function loadByUsername of the service UserDetailsServiceImpl and cast it to UserDetails
+5- create authentication object for simple presentation of a username and password.
+6- associate the request with the authenticated user.
+	
+//////////// AuthEntryPointJwt
+this class is to Commences an authentication scheme. return error indicating that user unauthorized
+
+//////////// WebSecurityConfig
+
+
+
+
+//////////// AuthController
+1- signIn(username, password)
+2- signUp
+	a- if username or email exists --> throw exception already in use
+	b- create user Object
+	c-  if role is indicated --> get roe from db -> attach role to user and save user
+	d- if role is not indicated --> get user role from db  -> attach role to user and save user
+3- refreshToken(refreshToken)
+	---> we give the refreshToken and we expect new (AccessToken, refreshToken giving in request cause it's not expired)
+	a- get tokenObject from db with token in request
+	b- if token is expired --> delete it --> throw exception
+	c- if token not expired generate new token based on the username extracted from the user in the refreshTokenObject.
+4- logout(userId)
+	--> delete refreshtoken by userID
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

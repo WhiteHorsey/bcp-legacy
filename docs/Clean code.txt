@@ -1,0 +1,96 @@
+the true cost of software is its maintenance, we get slower as the code degrades and rots.
+let's say, understanding a project structure in 5 mins isn't like understanding it in one hour
+having structured project, structured simple well written code allowes us to mainain the code and upgrade it fatser on the needs.
+
+######################### Fucntions are verbs #########################
+
+	BAD : product(), transaction()
+	GOOD : getName(), sendEmail(), isGoldClient(), areHostsValid()
+
+######################### Classes are nouns #########################
+
+	BAD : OrderInfo, OrderData
+	GOOD : Order, OrderSummury, FullOrder, OrderFacade
+
+######################### Interfaces #########################
+
+Delete Intefaces except :
+1- Remoting/API : api.jar -> interfaces are packaged along with data structures in a client aPI jar delivered to a client.
+2- Strategy pattern : Dynamically select implementation to use at runtime.
+3- Dependency Inversion : implement it in lower-level modules.
+
+
+######################### Naming #########################
+
+make the name speak for itself--> comprehension refactoring 
+
+
+Names should be :
+1- pronounceable
+	BAD : int getinvcdtlmt() -> was a standard because of the size of binary artifacts mattered long ago -> longer name = longer binary
+	GOOD : int getInvoiceableCreditLimit()
+2- don't abbreviate! unless it's a basic business concept : VAT!
+3- Consistent : use either find() or fetch() or get()
+4- unique : don't user buyer or client to refer to customer 
+5- Name length : naming method argument is good cause it can work as live documentation
+	BAD : public void copy(Order from, Order to)
+
+######################### Fucntions #########################
+
+SRP : Single Responsability principle
+A function should do one thing, it should do it well and it should do it only --> they need to be small 5 lines
+
+small methods actually run fatser it was proven by google "Just in time compiler Optimizations" we call them HOT methods.
+
+--> split long functions into many-many private small functions with long descriptive names that guides the reader.
+and private it no one can observe this method outside the class.
+
+redesign -> inline all code -> refactor -> extract again
+
+Max params = 3
+	BAD : myBadMethod("jhon","micheal","paris","st. algfdvf");
+
+If it just passes down the args -> try introduces a parameter OBJECT/DTO
+	params.setStreet("kika");
+	myBadMethod(params);
+
+
+
+######################### Example 1 ######################### 
+
+public List<Integer> stringsToInts(List<Strings> strings){
+	if(strings != null){
+		List<Integer> integers = new ArrayList<>();
+		for(String s : strings){
+			intergers.add(Integer.parseInt(s));
+		}
+		return integers;
+	}else {
+		return null;
+	}
+}
+
+Solution 1 --> early returns it reduces number of indentation (TABS) easier to read
+public List<Integer> stringsToInts(List<Strings> strings){
+	if(strings == null){
+		return null;
+	}
+	List<Integer> integers = new ArrayList<>();
+	for(String s : strings){
+		intergers.add(Integer.parseInt(s));
+	}
+	return integers;
+}
+
+
+######################### DATA STRUCURES ######################### 
+
+= classes that just expose all ther internal state
+
+1- expose behavior not DATA
+	Example 1:
+		BAD : car.engineStarted = true / car.setEngineStarted(true);
+		GOOD : car.startEngine(); ----> hidden
+	Example 2:
+		BAD : car.getGasolineInLiters(); car.getPercentageFuelLeft();
+		GOOD : car.getEstimatedRemainingKm(); 

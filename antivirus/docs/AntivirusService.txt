@@ -1,0 +1,14 @@
+package bcp.socle.antivirus;
+
+import java.io.IOException;
+import java.io.InputStream;
+
+/**
+ * @author bilalslayki
+ *
+ */
+public interface AntivirusService {
+
+	boolean scan(InputStream is) throws IOException;
+
+}

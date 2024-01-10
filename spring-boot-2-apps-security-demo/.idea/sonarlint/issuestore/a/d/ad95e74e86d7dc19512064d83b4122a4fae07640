@@ -1,0 +1,8 @@
+
+o
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(…šà
+]
+java:S1854"BRemove this useless assignment to local variable "responseEntity".(ÖƒÙõúÿÿÿÿ
+N
+java:S1481"3Remove this unused "responseEntity" local variable.(ÖƒÙõúÿÿÿÿ
+N	java:S106&"9Replace this use of System.out or System.err by a logger.(¿ø»Æ

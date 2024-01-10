@@ -1,0 +1,22 @@
+
+
+let say we have service-one ( 8081 ) and service-two ( 8082 )
+and service-two scaled up to 10 instances  = 10 other ports that service-one needs to know.
+	======> the process of automatically detecting devices and services on network
+
+We have eureka clients and eureka server
+A- the clients will register to the server ===> the server will know exactly the information where the service is running host ( IP ) + Port.
+2- The microservice will talk to other microservices will baseically lookUP to the eureka server
+This is how they can connect with each other
+
+=====> the server knows all the clients running on each port and IP 
+
+
+In the example
+
+Customer 8080 will register to the eureka server
+Fraud 8081,8082 will register to the eureka server
+==> server has all infos now port,ip addresses
+if customer want to talk to fraud, he will send a discovery request to eureka server to ask him where the ffraud service lives?
+==> server will respond with one of the instances
+Customer talks to appropriate service fraud

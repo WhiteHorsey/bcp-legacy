@@ -1,0 +1,61 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.3'
+	id 'io.spring.dependency-management' version '1.0.13.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	 // RABBIT MQ
+	implementation 'org.springframework.boot:spring-boot-starter-amqp'
+	testImplementation 'org.springframework.amqp:spring-rabbit-test'
+
+	// SPRING DATA
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+	// MAILING
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	//	SECURITY
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+
+	// VALIDATION
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// WEB
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+
+	// LOMBOK
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	// DEVTOOLS
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
+	// MYSQL CONNECTOR
+	runtimeOnly 'mysql:mysql-connector-java'
+
+
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

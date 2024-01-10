@@ -1,0 +1,24 @@
+#----- spring -----#
+spring:
+  application:
+    name: conflit-back
+  # Database
+  datasource:
+    username: postgres
+    password: kun123456789+
+    url: jdbc:postgresql://localhost:5432/conflitdb
+    driver-class-name: org.postgresql.Driver
+  # JPA properties
+  jpa:
+#    show-sql: true
+    hibernate:
+      ddl-auto: update
+
+app:
+  jwtSecret: 2r5u8x/A?D(G+KbPeShVmYq3s6v9y$B&E)H@McQfTjWnZr4u7w!z%C*F-JaNdRgU
+  jwtExpirationMs: 300000
+  jwtRefreshCookieName: jwtRefresh
+  jwtRefreshExpirationMs: 960000
+
+server:
+  port : 5674

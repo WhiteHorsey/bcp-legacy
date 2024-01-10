@@ -1,0 +1,10 @@
+naming convention : application:<profileName>.yaml
+	Exemple : application.yml	application-test.yml 
+
+TO SET ACTIVE PROFILE: GO TO APPLICATION.YML AND SET "spring.profiles.active: test" ---> load properties of test profile    ---------> BAD
+
+java 	-jar 	jarName.jar	 --spring.profiles.active=test
+
+
+
+

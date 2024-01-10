@@ -1,0 +1,47 @@
+####################################### CLASS CUSTOMER ####################################### 
+
+@Entity
+public class Customer {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    @OneToMany(mappedBy = "customer")
+    @Fetch(value = FetchMode.SELECT)
+    private Set<Order> orders = new HashSet<>();
+
+    // getters and setters
+}
+
+####################################### CLASS ORDER ####################################### 
+
+@Entity
+public class Order {
+
+    @Id
+    @GeneratedValue
+    private Long id;
+
+    private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
+
+    // getters and setters
+}
+
+
+####################################### we'll fetch the customer from the database and get all of its orders:
+
+Customer customer = customerRepository.findById(id).get();
+Set<Order> orders = customer.getOrders();
+
+####################################### FetchMode.SELECT #######################################
+
+@OneToMany
+@Fetch(FetchMode.SELECT)
+private Set<Orders> orders;
+
+

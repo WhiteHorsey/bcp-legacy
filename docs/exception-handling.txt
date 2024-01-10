@@ -1,0 +1,28 @@
+###################################### Always close Resources ######################################
+GOOD :
+	InputStream stream = null;
+	try{
+		stream = new FileInputstream(new File("filePath"));
+		// READING DATA, PROCESSING IT
+	} catch(IOException exception){
+		exception.printstackTrace();
+	} finally {
+		stream.close(); ---------------------------------> CLOSE RESSOURCES
+	}
+BETTER :
+
+	try (InputStream stream = new FileInputstream(new File("filePath")) ){ ---------------------------------> AUTOMATICALLY CLOSED
+		// READING DATA, PROCESSING IT
+	} catch(IOException exception){
+		exception.printstackTrace();
+	} 
+###################################### CATCH MOST SPECEIFIC EXCEPTIONS FIRST ######################################
+
+
+###################################### DON'T CATCH THROWABLE ######################################
+THROWABLE is base clase fo all exception also for jvm exceptions
+
+###################################### 4 ######################################
+
+
+###################################### 5 ######################################

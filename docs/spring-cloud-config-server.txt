@@ -1,0 +1,41 @@
+GOALS:
+	1- Externalized
+	2- Environment specific ( different value for different environmentS )
+	3- Consistent --> let's say we have a jar with some configuration values, let's say somebody makes a change to the configuration value there a new build new jar , my jar is deployed to 2 of the 3 instances of microservices
+			the other one has the old one the changes goes to one , chage doesn't go an othe rone --> not consistent
+	4- Version History --> you might see configuration sitting in a source code somebody's commited it, but you don't know actually deployed
+	5- RealTime management
+
+
+
+POSSIBLE SOLUTIONS:
+	1- Apache Zookeeper
+	2- ETCD - distributed key-value store
+	3- Hashicorp Consul
+	4- Spring cloud Configuration server
+
+
+
+1- create git repo and put in there all the config files for all microservices
+	===> create config files like this : microservice-name.yml		same as spring .application.name
+	===> Example: bcp-distribution-layer-account.yml
+
+2- in microservice set  spring .application.name propertiy so that it knows when to fetch from the repo select the appropriate file.
+3- implementation 'org.springframework.cloud:spring-cloud-starter-config'
+4- 
+ext {
+	set('springCloudVersion', "2021.0.4")
+}
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+
+====================> TO activate automatic refresh of config in the application without restarting the app
+Add actuator it enables an endpoints that we can call it as post request ..../refresh and it will communicate with the config server and fetch SOME properties
+the config server
+
+THIS properties are refreshes based on the the annotation @RefreshScope on the classes that needs to be refreshed not all.
+EXAMPLE: Cient or services

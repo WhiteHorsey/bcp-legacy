@@ -1,0 +1,37 @@
+plugins {
+	id 'org.springframework.boot' version '2.7.4'
+	id 'io.spring.dependency-management' version '1.0.14.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.security:spring-security-test'
+
+	// https://mvnrepository.com/artifact/org.keycloak/keycloak-spring-boot-starter
+	implementation 'org.keycloak:keycloak-spring-boot-starter:9.0.2'
+
+}
+
+ext {
+	set('keycloakVersion', '9.0.2')
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+dependencyManagement {
+	imports {
+		mavenBom "org.keycloak.bom:keycloak-adapter-bom:${keycloakVersion}"
+	}
+}

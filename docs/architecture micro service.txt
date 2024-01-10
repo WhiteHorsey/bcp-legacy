@@ -1,0 +1,24 @@
+Avantages micro services
+
+1- rapide, facile à construire. Dans le cas d'une application monolith ca necaissite une collaboration complexe des acteurs ce qui va cause un retart signifiant par rapport
+à la repartition des cahrges chaque 1-2/microservice en un peu de temps.
+2- On peut avoir une varieté de language de programation pour chaque microservice.
+3- mettre e place une gaeway qui va se charger des communications de l'exterieur  = frontend.
+	--> role gateway: elle va rediriger la requete vers le microservice appropié ens e basant sur base route du microservice dans URL.
+
+####################"
+Les micros services sont une approche d'architecture et de developpement d'une application composées de petit services.
+L'idée étant de découper un grand problème en petites unités implémentée sous forme de microservices.
+Chaque service est responsable d'une fonctionnalité.
+Chaque microservice est développé, tésté et déployé sépaeément des autres.
+Chaque MS est développé en utilisant une technologie qui peut être differente des autres.
+Chaque service tourne dans un processus séparé
+utilisant des mécanismes de communication légers (REST)
+La seule relation entre des différents micro services est l'échange de données effectué à travers les différentes APIs qui'ils exposent.(SOAP,REST RMI, COBRA, JMS...)
+Lorsqu'on les combinent, cers MS peuvent réaliser des opérations très complexes.
+
+############### 
+Separation between code and config ( those value are not part of business logic we want to separate them)
+Don't hard code.
+
+############ 

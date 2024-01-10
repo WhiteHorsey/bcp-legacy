@@ -1,0 +1,16 @@
+every things starts when the client request something from our server
+
+the first thing that is executed is the JwtFilter = has the role to validate and check everything regarding the token or the JWT token provided
+	1- internal check in the jwtfilter if we have the jwt token or NOT.
+		a- if Token missing return 403 ( missing jwt ).
+		b- if token exists -> extract(  username or email ) = subject
+	2- start the validation process:
+		a- the jwtfilter will call the userDetailsService to fetch user from db providing the subject ( username or email ).
+			a-1- user does not exists  --> return 403 ( user does not exists ).
+			a-2- if user exists --> validate the token based on the user
+	3- the validation process itself:
+		a- call JwtService that take a param the user itself + the token
+			a-1- first scenario : the token is not valid. ( expired , token not for that user )  ---> send  403 ( invalid jwt token )
+	4- update the security context holder and set this connected user that we fetch from the user deatils service.
+		then set the filter chain that this user is now authenticated
+		after that the security context holder will dispatch the request tothe dispatcher servlet then sent to the controller. 

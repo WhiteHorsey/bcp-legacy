@@ -1,0 +1,7 @@
+keycloak:
+  realm: SpringBootKeycloak
+  auth-server-url: http://localhost:8180/auth
+  ssl-required: external
+  resource: login-app
+  use-resource-role-mappings: true
+  bearer-only: true

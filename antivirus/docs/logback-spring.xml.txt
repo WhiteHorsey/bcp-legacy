@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+ 
+    <springProperty scope="context" name="APPLICATION_NAME" source="spring.application.name"/>
+    
+    <property name="LOGS" value="./logs" />
+ 
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [${APPLICATION_NAME}] [%thread] [%X{USERNAME}] [%level] %logger{36} - %msg%n%exception</Pattern>
+        </encoder>
+    </appender>
+ 
+    <appender name="RollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/${APPLICATION_NAME}-logger.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<Pattern>[%d{yyyy-MM-dd HH:mm:ss.SSS}] [${APPLICATION_NAME}] [%thread] [%X{USERNAME}] [%level] %logger{36} - %msg%n%exception</Pattern>
+        </encoder>
+ 
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- générer un nouveau fichier de log chaque jour et ce à chaque fois que le fichier atteint la taille de 10MB -->
+            <fileNamePattern>${LOGS}/archived/${APPLICATION_NAME}-logger-%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+    
+	<!-- TRACE, DEBUG, INFO, WARN, ERROR -->
+     
+    <!-- Logger par défaut au niveau INFO -->
+    <root level="INFO">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+    </root>
+ 
+    <!-- Logger du socle au niveau INFO -->
+    <logger name="bcp.socle" level="INFO" additivity="false">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+    </logger>
+    
+    <!-- Logger de l'application au niveau INFO -->
+    <logger name="bcp.socle.antivirus" level="INFO" additivity="false">
+        <appender-ref ref="RollingFile" />
+        <appender-ref ref="Console" />
+    </logger>
+ 
+</configuration>

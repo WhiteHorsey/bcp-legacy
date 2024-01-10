@@ -1,0 +1,31 @@
+
+
+#----- SSL configuration -----#
+server:
+  #ssl:
+   # key-store: classpath:bcp-ClamAv-api-10.3.111.120.p12
+    #key-store-password: bcp-ClamAv-api
+    #key-store-type: pkcs12
+    #key-alias: bcp-ClamAv-api-10.3.111.120
+    #key-password: bcp-ClamAv-api
+  port: 8083
+  #redirected:
+   # port: 8090
+#----------------------------------#
+
+
+#----- ClamAV configuration -----#    
+clamd:
+  timeout: 5000 # en milliseconds
+  maxfilesize: 20 # en Megabyte
+  maxrequestsize: 20 # en Megabyte
+  host: localhost
+  port: 3310
+#----------------------------------#
+
+
+spring:
+  application:
+    name: bcp-socle-antivirus
+  main:
+    allow-bean-definition-overriding: true
